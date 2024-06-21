@@ -24,7 +24,7 @@ void editPlayerInfo();
 void manageTeams();
 void displayAllPlayers();
 void logout();
-void backMenu();
+void backOption();
 
 void backMenu(){
     cout << "\n";
@@ -226,7 +226,7 @@ void displayAllPlayers(){
         cout << "\n \t\t\t Error opening file!\n";
     }
 
-    backMenu();
+    backOption();
 }
 
 void searchPlayers(){
@@ -259,7 +259,7 @@ void searchPlayers(){
         cout << "\n \t\t\t Error opening file!\n";
     }
 
-    backMenu();
+    backOption();
 }
 
 void addPlayers(){
@@ -295,7 +295,7 @@ void addPlayers(){
         cout << "\n \t\t\t Error opening file!\n";
     }
 
-    backMenu();
+    backOption();
 }
 
 int main(){
