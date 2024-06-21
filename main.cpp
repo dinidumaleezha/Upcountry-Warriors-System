@@ -26,7 +26,7 @@ void displayAllPlayers();
 void logout();
 void backOption();
 
-void backMenu(){
+void backOption(){
     cout << "\n";
     cout << "\n \t\t\t Enter any key to go to the previous menu: ";
     cin >> choice;
