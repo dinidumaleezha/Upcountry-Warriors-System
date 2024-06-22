@@ -7,7 +7,7 @@ string userName, password, firstName, lastName, Dob, line;
 string playerName, playerFirsName, playerLastName, playerDob, playerTeam, playerScored;
 string F_UserData = "userdata.txt";
 string F_PlayersData = "players.txt";
-string aadminCode = "icbt";
+const string aadminCode = "icbt";
 int userID, P_ID;
 char choice;
 
@@ -43,6 +43,14 @@ void backOption(){
 void useRegister() {
     system("cls");
 
+    cout << " \t\t\t ________________________________________________\n";
+    cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|                User Registration               |\n";
+    cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << " \t\t\t|                      V.0.1                     |\n";
+    cout << " \t\t\t|________________________________________________|\n";
+
     cout << "\n \t\t\t Enter First Name: ";
     cin >> firstName;
 
@@ -71,9 +79,10 @@ void checkLogin() {
 
     cout << " \t\t\t ________________________________________________\n";
     cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                                                |\n";
     cout << " \t\t\t|                  Welcome Back!                 |\n";
     cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << " \t\t\t|                      V.0.1                     |\n";
     cout << " \t\t\t|________________________________________________|\n";
 
     cout << "\n \t\t\t Enter Username: ";
@@ -211,9 +220,10 @@ void displayAllPlayers(){
 
     cout << " \t\t\t ________________________________________________\n";
     cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|                    All Players                 |\n";
     cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                   All Players                  |\n";
-    cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << " \t\t\t|                      V.0.1                     |\n";
     cout << " \t\t\t|________________________________________________|\n";
 
     ifstream inFile(F_PlayersData);
@@ -233,9 +243,10 @@ void searchPlayers(){
 
     cout << " \t\t\t ________________________________________________\n";
     cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|                  Search Players                |\n";
     cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                Search Players                  |\n";
-    cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << " \t\t\t|                      V.0.1                     |\n";
     cout << " \t\t\t|________________________________________________|\n";
 
     cout << "\n \t\t\t Enter Name : ";
