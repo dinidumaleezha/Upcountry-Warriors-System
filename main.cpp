@@ -5,8 +5,8 @@ using namespace std;
 
 string userName, password, firstName, lastName, Dob, line;
 string playerName, playerFirsName, playerLastName, playerDob, playerTeam, playerScored;
-string F_UserData = "userdata.txt";
-string F_PlayersData = "players.txt";
+const string F_UserData = "userdata.txt";
+const string F_PlayersData = "players.txt";
 const string aadminCode = "icbt";
 int userID, P_ID;
 char choice;
