@@ -122,7 +122,8 @@ void welcomeMenu(){
 
     cout << " \t\t\t ________________________________________________\n";
     cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                Hello! Welcome User!            |\n";
+    cout << " \t\t\t|               HELLO! WELCOME USER!             |\n";
+    cout << " \t\t\t|________________________________________________|\n";
     cout << " \t\t\t|                                                |\n";
     cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
     cout << " \t\t\t|                      V.0.1                     |\n";
@@ -165,10 +166,11 @@ void mainMenu(){
 
     cout << " \t\t\t ________________________________________________\n";
     cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                   Welcome back!                |\n";
-    cout << " \t\t\t|                                                |\n";
     cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
     cout << " \t\t\t|                      V.0.1                     |\n";
+    cout << " \t\t\t|________________________________________________|\n";
+    cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|                    MAIN MENU                   |\n";
     cout << " \t\t\t|________________________________________________|\n";
 
     cout << "\n \t\t\t [1] Display All Players \n";
