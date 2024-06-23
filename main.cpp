@@ -122,10 +122,10 @@ void welcomeMenu(){
 
     cout << " \t\t\t ________________________________________________\n";
     cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|               HELLO! WELCOME USER!             |\n";
+    cout << " \t\t\t|           \xB2\xB2\xB2\ HELLO! WELCOME USER! \xB2\xB2\xB2\         |\n";
     cout << " \t\t\t|________________________________________________|\n";
     cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << " \t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
     cout << " \t\t\t|                      V.0.1                     |\n";
     cout << " \t\t\t|________________________________________________|\n";
 
@@ -178,8 +178,9 @@ void mainMenu(){
     cout << "\t\t\t [3] Add Players \n";
     cout << "\t\t\t [4] Remove Players \n";
     cout << "\t\t\t [5] Edit Player Information \n";
-    cout << "\t\t\t [6] Manage Teams \n";
-    cout << "\t\t\t [7] Logout \n";
+    cout << "\t\t\t [6] Add Teams \n";
+    cout << "\t\t\t [7] Manage Teams \n";
+    cout << "\t\t\t [8] Logout \n";
     cout << "\n \t\t\t Enter your choice: ";
 
     cin >> choice;
@@ -208,6 +209,9 @@ void mainMenu(){
             break;
         case '7':
             system("cls");
+            break;
+        case '8':
+            system("cls");
             welcomeMenu();
             break;
         default:
@@ -222,10 +226,11 @@ void displayAllPlayers(){
 
     cout << " \t\t\t ________________________________________________\n";
     cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                    All Players                 |\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << " \t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
     cout << " \t\t\t|                      V.0.1                     |\n";
+    cout << " \t\t\t|________________________________________________|\n";
+    cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|               \xB2\xB2\xB2\ ALL PLAYERS \xB2\xB2\xB2\              |\n";
     cout << " \t\t\t|________________________________________________|\n";
 
     ifstream inFile(F_PlayersData);
@@ -245,10 +250,11 @@ void searchPlayers(){
 
     cout << " \t\t\t ________________________________________________\n";
     cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                  Search Players                |\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << " \t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
     cout << " \t\t\t|                      V.0.1                     |\n";
+    cout << " \t\t\t|________________________________________________|\n";
+    cout << " \t\t\t|                                                |\n";
+    cout << " \t\t\t|              \xB2\xB2\xB2\ SEARCH PLAYERS \xB2\xB2\xB2\            |\n";
     cout << " \t\t\t|________________________________________________|\n";
 
     cout << "\n \t\t\t Enter Name : ";
