@@ -43,13 +43,13 @@ void backOption(){
 void useRegister() {
     system("cls");
 
-    cout << " \t\t\t ________________________________________________\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                User Registration               |\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
-    cout << " \t\t\t|                      V.0.1                     |\n";
-    cout << " \t\t\t|________________________________________________|\n";
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|                User Registration               |\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
 
     cout << "\n \t\t\t Enter First Name: ";
     cin >> firstName;
@@ -77,13 +77,13 @@ void useRegister() {
 
 void checkLogin() {
 
-    cout << " \t\t\t ________________________________________________\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                  Welcome Back!                 |\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
-    cout << " \t\t\t|                      V.0.1                     |\n";
-    cout << " \t\t\t|________________________________________________|\n";
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|                  Welcome Back!                 |\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
 
     cout << "\n \t\t\t Enter Username: ";
     cin >> userName;
@@ -120,20 +120,20 @@ void checkLogin() {
 
 void welcomeMenu(){
 
-    cout << " \t\t\t ________________________________________________\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|           \xB2\xB2\xB2\ HELLO! WELCOME USER! \xB2\xB2\xB2\         |\n";
-    cout << " \t\t\t|________________________________________________|\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
-    cout << " \t\t\t|                      V.0.1                     |\n";
-    cout << " \t\t\t|________________________________________________|\n";
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|           \xB2\xB2\xB2\ HELLO! WELCOME USER! \xB2\xB2\xB2\         |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
 
-    cout << " \t\t\t  \n";
-    cout << " \t\t\t [1] Log In \n";
-    cout << " \t\t\t [2] Register \n";
-    cout << " \t\t\t [3] Display All Players \n";
-    cout << " \t\t\t [4] Exit \n";
+    cout << "\t\t\t \n";
+    cout << "\t\t\t [1] Log In \n";
+    cout << "\t\t\t [2] Register \n";
+    cout << "\t\t\t [3] Display All Players \n";
+    cout << "\t\t\t [4] Exit \n";
 
     cout << " \t\t\t  \n";
     cout << "\t\t\t Select Your Choice: ";
@@ -164,14 +164,14 @@ void welcomeMenu(){
 
 void mainMenu(){
 
-    cout << " \t\t\t ________________________________________________\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
-    cout << " \t\t\t|                      V.0.1                     |\n";
-    cout << " \t\t\t|________________________________________________|\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|                    MAIN MENU                   |\n";
-    cout << " \t\t\t|________________________________________________|\n";
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|                    MAIN MENU                   |\n";
+    cout << "\t\t\t|________________________________________________|\n";
 
     cout << "\n \t\t\t [1] Display All Players \n";
     cout << "\t\t\t [2] Search Players \n";
@@ -224,14 +224,14 @@ void mainMenu(){
 
 void displayAllPlayers(){
 
-    cout << " \t\t\t ________________________________________________\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
-    cout << " \t\t\t|                      V.0.1                     |\n";
-    cout << " \t\t\t|________________________________________________|\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|               \xB2\xB2\xB2\ ALL PLAYERS \xB2\xB2\xB2\              |\n";
-    cout << " \t\t\t|________________________________________________|\n";
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|               \xB2\xB2\xB2\ ALL PLAYERS \xB2\xB2\xB2\              |\n";
+    cout << "\t\t\t|________________________________________________|\n";
 
     ifstream inFile(F_PlayersData);
     if (inFile.is_open()) {
@@ -248,14 +248,14 @@ void displayAllPlayers(){
 
 void searchPlayers(){
 
-    cout << " \t\t\t ________________________________________________\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
-    cout << " \t\t\t|                      V.0.1                     |\n";
-    cout << " \t\t\t|________________________________________________|\n";
-    cout << " \t\t\t|                                                |\n";
-    cout << " \t\t\t|              \xB2\xB2\xB2\ SEARCH PLAYERS \xB2\xB2\xB2\            |\n";
-    cout << " \t\t\t|________________________________________________|\n";
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|              \xB2\xB2\xB2\ SEARCH PLAYERS \xB2\xB2\xB2\            |\n";
+    cout << "\t\t\t|________________________________________________|\n";
 
     cout << "\n \t\t\t Enter Name : ";
     cin >> userName;
