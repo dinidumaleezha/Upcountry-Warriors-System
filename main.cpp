@@ -69,6 +69,7 @@ void useRegister() {
         outFile << "------------------------------------------------\n";
         outFile.close();
         cout << "\n \t\t\t Registration Successful! \n";
+        system("cls");
         checkLogin();
     } else {
         cout << "\n \t\t\t Error opening file!\n";

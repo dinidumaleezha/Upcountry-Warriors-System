@@ -22,4 +22,13 @@ User ID: 0
 First Name: Wageesha
 Password: 654
 Full Name: Wageesha Thivanjali
+------------------------------------------------User ID: 0
+First Name: Dinidu
+Password: 654
+Full Name: Dinidu Malisha
+------------------------------------------------
+User ID: 0
+First Name: Dinidu
+Password: 321
+Full Name: Dinidu Malisha
 ------------------------------------------------
