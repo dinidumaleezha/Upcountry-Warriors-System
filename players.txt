@@ -13,9 +13,4 @@ Runs Scored: 302
 Team: SL
 ------------------------------------------------
 ID: 0
-First Name: Thivanjali
-Full Name: Thivanjali 0
-Date of Birth: 08/09/2005
-Runs Scored: 362
-Team: SL_TEAM
 ------------------------------------------------

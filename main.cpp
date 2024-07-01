@@ -1,9 +1,10 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
-string userName, password, firstName, lastName, Dob, line;
+string userName, password, firstName, lastName, Dob, line, recordLine;
 string playerName, playerFirsName, playerLastName, playerDob, playerTeam, playerScored;
 const string F_UserData = "userdata.txt";
 const string F_PlayersData = "players.txt";
@@ -12,6 +13,7 @@ int userID, P_ID;
 char choice;
 
 bool loginSuccess = false;
+bool playerFound = false;
 
 void welcomeMenu();
 void mainMenu();
@@ -201,6 +203,7 @@ void mainMenu(){
             break;
         case '4':
             system("cls");
+            removePlayers();
             break;
         case '5':
             system("cls");
@@ -318,9 +321,88 @@ void addPlayers(){
     backOption();
 }
 
+void removePlayers(){
+
+    cout << "\n \t\t\t Enter the name of the player to delete: ";
+    cin >> userName;
+
+    ifstream inFile(F_PlayersData);
+    if (inFile.is_open()) {
+        vector<string> fileContents;
+
+        while (getline(inFile, line)) {
+            if (line == "First Name: " + userName) {
+
+                playerFound = true;
+
+                getline(inFile, line);
+                getline(inFile, line);
+                getline(inFile, line);
+                getline(inFile, line);
+
+            } else {
+                fileContents.push_back(line);
+            }
+        }
+        inFile.close();
+
+        if (playerFound) {
+            ofstream outFile(F_PlayersData);
+            if (outFile.is_open()) {
+                for (const string& recodeLine : fileContents) {
+                    outFile << recodeLine << endl;
+                }
+                outFile.close();
+                cout << "\n \t\t\t Player " << userName << " deleted successfully." << endl;
+            } else {
+                cout << "\n \t\t\t Error opening file for writing!\n";
+            }
+        } else {
+            cout << "\n \t\t\t Player not found!\n";
+        }
+
+    } else {
+        cout << "\n \t\t\t Error opening file!\n";
+    }
+
+}// #maliya; Maliya@#654
+
 int main(){
 
     welcomeMenu();
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
