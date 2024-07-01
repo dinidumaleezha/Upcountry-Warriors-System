@@ -323,6 +323,15 @@ void addPlayers(){
 
 void removePlayers(){
 
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|             \xB2\xB2\xB2\ REMOVE PLAYERS \xB2\xB2\xB2\              |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+
     cout << "\n \t\t\t Enter the name of the player to delete: ";
     cin >> userName;
 
@@ -354,6 +363,7 @@ void removePlayers(){
                 }
                 outFile.close();
                 cout << "\n \t\t\t Player " << userName << " deleted successfully." << endl;
+                backOption();
             } else {
                 cout << "\n \t\t\t Error opening file for writing!\n";
             }
