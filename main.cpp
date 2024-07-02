@@ -6,7 +6,7 @@ using namespace std;
 
 //---------Start-Variables-----------------------------------------------//
 string userName, password, firstName, lastName, Dob, line, recordLine;
-string playerName, playerFirsName, playerLastName, playerDob, playerTeam, playerScored;
+string playerName, playerFirsName, playerLastName, playerDob,playerTeam2, playerTeam, playerScored;
 const string F_UserData = "userdata.txt";
 const string F_PlayersData = "players.txt";
 const string aadminCode = "icbt";
@@ -15,6 +15,8 @@ char choice;
 
 bool loginSuccess = false;
 bool playerFound = false;
+bool anotherTeam = false;
+bool noInvalid = false; //----Check-N------------------------------------//
 //---------End-Variables-------------------------------------------------//
 
 //---------Start-Function Declaration------------------------------------//
@@ -338,11 +340,13 @@ void addPlayers(){
     cin >> choice;
 
     if (choice == 'y' || choice == 'Y') {
-
-
-    } else if (choice == 'n' || choice == 'N') {
-
-        ofstream outFile(F_PlayersData, ios::app);
+        anotherTeam = true;
+        cout << "\n \t\t\t Enter Player's Team 2: ";
+        cin >> playerTeam2;
+    } else if (choice == 'n' || choice == 'N'){
+        noInvalid = true;
+    }
+    ofstream outFile(F_PlayersData, ios::app);
         if (outFile.is_open()) {
             outFile << "ID: " << P_ID << "\n";
             outFile << "First Name: " << playerFirsName << "\n";
@@ -350,16 +354,26 @@ void addPlayers(){
             outFile << "Date of Birth: " << playerDob << "\n";
             outFile << "Runs Scored: " << playerScored << "\n";
             outFile << "Team: " << playerTeam << "\n";
-            outFile << "------------------------------------------------\n";
+
+            if (anotherTeam){
+                outFile << "Team 2: " << playerTeam2 << "\n";
+                outFile << "------------------------------------------------\n";
+                cout << "\n \t\t\t Add Record Successful! \n";
+                anotherTeam = false;
+            }else{
+                outFile << "------------------------------------------------\n";
+                if (noInvalid){
+                    cout << "\n \t\t\t Add Record Successful! \n";
+                } else {
+                    cout << "\n\t\t\t You have entered another code instead of 'n' and,";
+                    cout << "\t\t\t We have included this player in" << playerTeam << "group only.";
+                }
+            }
             outFile.close();
-            cout << "\n \t\t\t Add Record Successful! \n";
         } else {
             cout << "\n \t\t\t Error opening file!\n";
         }
 
-    } else {
-        cout << "\n\t\t\tInvalid option selected!\n";
-    }
     backOption();
 }
 //---------End-Add Players-----------------------------------------------//
@@ -421,13 +435,14 @@ void removePlayers(){
 }
 //---------End-Remove Players--------------------------------------------//
 
+//---------Start-main----------------------------------------------------//
 int main(){
 
     welcomeMenu();
 
     return 0;
 }
-
+//---------End-Main------------------------------------------------------//
 
 
 
