@@ -4,6 +4,7 @@
 #include <vector>
 using namespace std;
 
+//---------Start-Variables-----------------------------------------------//
 string userName, password, firstName, lastName, Dob, line, recordLine;
 string playerName, playerFirsName, playerLastName, playerDob, playerTeam, playerScored;
 const string F_UserData = "userdata.txt";
@@ -14,20 +15,24 @@ char choice;
 
 bool loginSuccess = false;
 bool playerFound = false;
+//---------End-Variables-------------------------------------------------//
 
+//---------Start-Function Declaration------------------------------------//
 void welcomeMenu();
-void mainMenu();
 void useRegister();
 void checkLogin();
+void mainMenu();
+void displayAllPlayers();
 void addPlayers();
 void searchPlayers();
 void removePlayers();
 void editPlayerInfo();
 void manageTeams();
-void displayAllPlayers();
 void logout();
 void backOption();
+//---------End-Function Declaration--------------------------------------//
 
+//---------Start-Back Option---------------------------------------------//
 void backOption(){
     cout << "\n";
     cout << "\n \t\t\t Enter any key to go to the previous menu: ";
@@ -41,7 +46,9 @@ void backOption(){
         }
     }
 }
+//---------End-Back Option-----------------------------------------------//
 
+//---------Start-Use Register--------------------------------------------//
 void useRegister() {
     system("cls");
 
@@ -77,7 +84,9 @@ void useRegister() {
         cout << "\n \t\t\t Error opening file!\n";
     }
 }
+//---------End-Use Register----------------------------------------------//
 
+//---------Start-Use Login-----------------------------------------------//
 void checkLogin() {
 
     cout << "\t\t\t ________________________________________________\n";
@@ -120,7 +129,9 @@ void checkLogin() {
         cout << "\n \t\t\t Error opening file!\n";
     }
 }
+//---------End-Use Login-------------------------------------------------//
 
+//---------Start-Welcome Menu--------------------------------------------//
 void welcomeMenu(){
 
     cout << "\t\t\t ________________________________________________\n";
@@ -164,7 +175,9 @@ void welcomeMenu(){
         welcomeMenu();
     }
 }
+//---------End-Welcome Menu----------------------------------------------//
 
+//---------Start-Main Menu-----------------------------------------------//
 void mainMenu(){
 
     cout << "\t\t\t ________________________________________________\n";
@@ -225,7 +238,9 @@ void mainMenu(){
             break;
     }
 }
+//---------End-Main Menu-------------------------------------------------//
 
+//---------Start-Display AllPlayers--------------------------------------//
 void displayAllPlayers(){
 
     cout << "\t\t\t ________________________________________________\n";
@@ -249,7 +264,9 @@ void displayAllPlayers(){
 
     backOption();
 }
+//---------End-Display AllPlayers----------------------------------------//
 
+//---------Start-Search Players------------------------------------------//
 void searchPlayers(){
 
     cout << "\t\t\t ________________________________________________\n";
@@ -284,9 +301,23 @@ void searchPlayers(){
 
     backOption();
 }
+//---------End-Search Players--------------------------------------------//
 
+//---------Start-Add Players---------------------------------------------//
 void addPlayers(){
     system("cls");
+
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|               \xB2\xB2\xB2\ ADD PLAYERS \xB2\xB2\xB2\              |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+
+    cout << "\n \t\t\t Enter Player's ID: ";
+    cin >> P_ID;
 
     cout << "\n \t\t\t Enter Player's First Name: ";
     cin >> playerFirsName;
@@ -303,24 +334,37 @@ void addPlayers(){
     cout << "\n \t\t\t Enter Player's Team: ";
     cin >> playerTeam;
 
-    ofstream outFile(F_PlayersData, ios::app);
-    if (outFile.is_open()) {
-        outFile << "ID: " << P_ID << "\n";
-        outFile << "First Name: " << playerFirsName << "\n";
-        outFile << "Full Name: " << playerFirsName << " " << playerLastName << "\n";
-        outFile << "Date of Birth: " << playerDob << "\n";
-        outFile << "Runs Scored: " << playerScored << "\n";
-        outFile << "Team: " << playerTeam << "\n";
-        outFile << "------------------------------------------------\n";
-        outFile.close();
-        cout << "\n \t\t\t Add Record Successful! \n";
-    } else {
-        cout << "\n \t\t\t Error opening file!\n";
-    }
+    cout << "\n \t\t\t Should this player be added to another team? (y or n): ";
+    cin >> choice;
 
+    if (choice == 'y' || choice == 'Y') {
+
+
+    } else if (choice == 'n' || choice == 'N') {
+
+        ofstream outFile(F_PlayersData, ios::app);
+        if (outFile.is_open()) {
+            outFile << "ID: " << P_ID << "\n";
+            outFile << "First Name: " << playerFirsName << "\n";
+            outFile << "Full Name: " << playerFirsName << " " << playerLastName << "\n";
+            outFile << "Date of Birth: " << playerDob << "\n";
+            outFile << "Runs Scored: " << playerScored << "\n";
+            outFile << "Team: " << playerTeam << "\n";
+            outFile << "------------------------------------------------\n";
+            outFile.close();
+            cout << "\n \t\t\t Add Record Successful! \n";
+        } else {
+            cout << "\n \t\t\t Error opening file!\n";
+        }
+
+    } else {
+        cout << "\n\t\t\tInvalid option selected!\n";
+    }
     backOption();
 }
+//---------End-Add Players-----------------------------------------------//
 
+//---------Start-Remove Players------------------------------------------//
 void removePlayers(){
 
     cout << "\t\t\t ________________________________________________\n";
@@ -374,8 +418,8 @@ void removePlayers(){
     } else {
         cout << "\n \t\t\t Error opening file!\n";
     }
-
-}// #maliya; Maliya@#654
+}
+//---------End-Remove Players--------------------------------------------//
 
 int main(){
 
