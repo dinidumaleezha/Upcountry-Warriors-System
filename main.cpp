@@ -9,7 +9,8 @@ string userName, password, firstName, lastName, Dob, line, recordLine;
 string playerName, playerFirsName, playerLastName, playerDob,playerTeam2, playerTeam, playerScored;
 const string F_UserData = "userdata.txt";
 const string F_PlayersData = "players.txt";
-const string aadminCode = "icbt";
+const string adminUsername = "user";
+const string adminPassword = "1234";
 int userID, P_ID;
 char choice;
 
@@ -21,7 +22,7 @@ bool noInvalid = false; //----Check-N------------------------------------//
 
 //---------Start-Function Declaration------------------------------------//
 void welcomeMenu();
-void useRegister();
+//void useRegister();
 void checkLogin();
 void mainMenu();
 void displayAllPlayers();
@@ -49,6 +50,48 @@ void backOption(){
     }
 }
 //---------End-Back Option-----------------------------------------------//
+
+//---------Start-Welcome Menu--------------------------------------------//
+void welcomeMenu(){
+
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|           \xB2\xB2\xB2\ HELLO! WELCOME USER! \xB2\xB2\xB2\         |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+
+    cout << "\t\t\t \n";
+    cout << "\t\t\t [1] Log In \n";
+    //cout << "\t\t\t [2] Register \n";
+    cout << "\t\t\t [2] Display All Players \n";
+    cout << "\t\t\t [3] Exit \n";
+
+    cout << " \t\t\t  \n";
+    cout << "\t\t\t Select Your Choice: ";
+    cin >> choice;
+
+    if (choice == '1') {
+        system("cls");
+        checkLogin();
+
+    } else if (choice == '2'){
+        system("cls");
+        displayAllPlayers();
+
+    } else if (choice == '3'){
+        system("cls");
+        cout << "\n \t\t\t Exiting program. Goodbye!" << "\n";
+
+    }else {
+        system("cls");
+        cout << "\n \t\t\t Invalid option selected! \n";
+        welcomeMenu();
+    }
+}
+//---------End-Welcome Menu----------------------------------------------//
 
 //---------Start-Use Register--------------------------------------------//
 void useRegister() {
@@ -105,6 +148,26 @@ void checkLogin() {
     cout << "\n \t\t\t Enter Password: ";
     cin >> password;
 
+    if (userName == adminUsername){
+        if (password == adminPassword){
+                loginSuccess = true;
+        } else {
+            system("cls");
+            cout << "\n \t\t\t Invalid Password! \n";
+            checkLogin();
+        }
+    } else {
+        system("cls");
+        cout << "\n \t\t\t Invalid Username! \n";
+        checkLogin();
+    }
+
+    if (loginSuccess){
+            cout << "\n \t\t\t Login Successful! \n";
+            system("cls");
+            mainMenu();
+    }
+/*
     ifstream inFile(F_UserData);
     if (inFile.is_open()) {
         while (getline(inFile, line)) {
@@ -130,54 +193,9 @@ void checkLogin() {
     } else {
         cout << "\n \t\t\t Error opening file!\n";
     }
+*/
 }
 //---------End-Use Login-------------------------------------------------//
-
-//---------Start-Welcome Menu--------------------------------------------//
-void welcomeMenu(){
-
-    cout << "\t\t\t ________________________________________________\n";
-    cout << "\t\t\t|                                                |\n";
-    cout << "\t\t\t|           \xB2\xB2\xB2\ HELLO! WELCOME USER! \xB2\xB2\xB2\         |\n";
-    cout << "\t\t\t|________________________________________________|\n";
-    cout << "\t\t\t|                                                |\n";
-    cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
-    cout << "\t\t\t|                      V.0.1                     |\n";
-    cout << "\t\t\t|________________________________________________|\n";
-
-    cout << "\t\t\t \n";
-    cout << "\t\t\t [1] Log In \n";
-    cout << "\t\t\t [2] Register \n";
-    cout << "\t\t\t [3] Display All Players \n";
-    cout << "\t\t\t [4] Exit \n";
-
-    cout << " \t\t\t  \n";
-    cout << "\t\t\t Select Your Choice: ";
-    cin >> choice;
-
-    if (choice == '1') {
-        system("cls");
-        checkLogin();
-
-    } else if (choice == '2') {
-        system("cls");
-        useRegister();
-
-    } else if (choice == '3'){
-        system("cls");
-        displayAllPlayers();
-
-    } else if (choice == '4'){
-        system("cls");
-        cout << "\n \t\t\t Exiting program. Goodbye!" << "\n";
-
-    }else {
-        system("cls");
-        cout << "\n \t\t\t Invalid option selected! \n";
-        welcomeMenu();
-    }
-}
-//---------End-Welcome Menu----------------------------------------------//
 
 //---------Start-Main Menu-----------------------------------------------//
 void mainMenu(){
@@ -231,6 +249,7 @@ void mainMenu(){
             break;
         case '8':
             system("cls");
+            loginSuccess = false;
             welcomeMenu();
             break;
         default:
@@ -287,13 +306,16 @@ void searchPlayers(){
     if (inFile.is_open()) {
         while (getline(inFile, playerName)) {
             if (playerName == "First Name: " + userName){
+                getline(inFile, playerName);
                 getline(inFile, playerDob);
                 getline(inFile, playerScored);
                 getline(inFile, playerTeam);
+                getline(inFile, playerTeam2);
                 cout << "\n \t\t\t " << playerName;
                 cout << "\n \t\t\t " << playerDob;
                 cout << "\n \t\t\t " << playerScored;
                 cout << "\n \t\t\t " << playerTeam;
+                cout << "\n \t\t\t " << playerTeam2;
             }
         }
         inFile.close();
@@ -365,8 +387,8 @@ void addPlayers(){
                 if (noInvalid){
                     cout << "\n \t\t\t Add Record Successful! \n";
                 } else {
-                    cout << "\n\t\t\t You have entered another code instead of 'n' and,";
-                    cout << "\t\t\t We have included this player in" << playerTeam << "group only.";
+                    cout << "\n \t\t\t You have entered another code instead of 'n' and, \n";
+                    cout << "\n \t\t\t We have included this player in " << playerTeam << " group only.";
                 }
             }
             outFile.close();
