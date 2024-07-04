@@ -7,6 +7,7 @@ using namespace std;
 //---------Start-Variables-----------------------------------------------//
 string userName, password, firstName, lastName, Dob, line, recordLine;
 string playerName, playerFirsName, playerLastName, playerDob,playerTeam2, playerTeam, playerScored;
+string teame2Lenth;
 const string F_UserData = "userdata.txt";
 const string F_PlayersData = "players.txt";
 const string adminUsername = "user";
@@ -17,6 +18,7 @@ char choice;
 bool loginSuccess = false;
 bool playerFound = false;
 bool anotherTeam = false;
+bool inAnotherTeam = false;
 bool noInvalid = false; //----Check-N------------------------------------//
 //---------End-Variables-------------------------------------------------//
 
@@ -28,7 +30,8 @@ void mainMenu();
 void displayAllPlayers();
 void addPlayers();
 void searchPlayers();
-void removePlayers();
+void removePlayers(); // Player's Teame Check
+void removePlayer(string userName); // Remove Player
 void editPlayerInfo();
 void manageTeams();
 void logout();
@@ -53,6 +56,8 @@ void backOption(){
 
 //---------Start-Welcome Menu--------------------------------------------//
 void welcomeMenu(){
+
+
 
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
@@ -409,11 +414,41 @@ void removePlayers(){
     cout << "\t\t\t|                      V.0.1                     |\n";
     cout << "\t\t\t|________________________________________________|\n";
     cout << "\t\t\t|                                                |\n";
-    cout << "\t\t\t|             \xB2\xB2\xB2\ REMOVE PLAYERS \xB2\xB2\xB2\              |\n";
+    cout << "\t\t\t|              \xB2\xB2\xB2\ REMOVE PLAYERS \xB2\xB2\xB2\            |\n";
     cout << "\t\t\t|________________________________________________|\n";
 
     cout << "\n \t\t\t Enter the name of the player to delete: ";
     cin >> userName;
+
+    ifstream inFile(F_PlayersData);
+    if (inFile.is_open()) {
+        while (getline(inFile, playerName)) {
+            if (playerName == "First Name: " + userName){
+                playerFound = true;
+                getline(inFile, playerName);// Line 2
+                getline(inFile, playerDob); // Line 3
+                getline(inFile, playerScored); // Line 4
+                getline(inFile, playerTeam); // Line 5
+                getline(inFile, playerTeam2); // Line 6
+
+                teame2Lenth = playerTeam2.substr(0, 6);
+
+                if (teame2Lenth == "Team 2"){
+                    inAnotherTeam = true;
+
+                }
+            }
+        }
+        inFile.close();
+        removePlayer(userName);
+
+    } else {
+        cout << "\n \t\t\t Error opening file!\n";
+    }
+    backOption();
+}
+
+void removePlayer(string userName ){
 
     ifstream inFile(F_PlayersData);
     if (inFile.is_open()) {
@@ -428,6 +463,11 @@ void removePlayers(){
                 getline(inFile, line);
                 getline(inFile, line);
                 getline(inFile, line);
+                getline(inFile, line);
+
+                if (inAnotherTeam){
+                    getline(inFile, line);
+                }
 
             } else {
                 fileContents.push_back(line);
@@ -443,7 +483,7 @@ void removePlayers(){
                 }
                 outFile.close();
                 cout << "\n \t\t\t Player " << userName << " deleted successfully." << endl;
-                backOption();
+
             } else {
                 cout << "\n \t\t\t Error opening file for writing!\n";
             }
@@ -454,6 +494,7 @@ void removePlayers(){
     } else {
         cout << "\n \t\t\t Error opening file!\n";
     }
+    backOption();
 }
 //---------End-Remove Players--------------------------------------------//
 
