@@ -5,14 +5,14 @@
 using namespace std;
 
 //---------Start-Variables-----------------------------------------------//
-string userName, password, firstName, lastName, Dob, line, recordLine;
+string inputID,userID, userName, password, firstName, lastName, Dob, line, recordLine;
 string playerName, playerFirsName, playerLastName, playerDob,playerTeam2, playerTeam, playerScored;
-string teame2Lenth;
+string teame2Lenth, nameLenth;
 const string F_UserData = "userdata.txt";
 const string F_PlayersData = "players.txt";
 const string adminUsername = "user";
 const string adminPassword = "1234";
-int userID, P_ID;
+int P_ID;
 char choice;
 
 bool loginSuccess = false;
@@ -56,9 +56,6 @@ void backOption(){
 
 //---------Start-Welcome Menu--------------------------------------------//
 void welcomeMenu(){
-
-
-
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|           \xB2\xB2\xB2\ HELLO! WELCOME USER! \xB2\xB2\xB2\         |\n";
@@ -101,7 +98,6 @@ void welcomeMenu(){
 //---------Start-Use Register--------------------------------------------//
 void useRegister() {
     system("cls");
-
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|                User Registration               |\n";
@@ -138,7 +134,6 @@ void useRegister() {
 
 //---------Start-Use Login-----------------------------------------------//
 void checkLogin() {
-
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|                  Welcome Back!                 |\n";
@@ -204,7 +199,6 @@ void checkLogin() {
 
 //---------Start-Main Menu-----------------------------------------------//
 void mainMenu(){
-
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
@@ -268,7 +262,6 @@ void mainMenu(){
 
 //---------Start-Display AllPlayers--------------------------------------//
 void displayAllPlayers(){
-
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
@@ -294,7 +287,6 @@ void displayAllPlayers(){
 
 //---------Start-Search Players------------------------------------------//
 void searchPlayers(){
-
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
@@ -304,13 +296,14 @@ void searchPlayers(){
     cout << "\t\t\t|              \xB2\xB2\xB2\ SEARCH PLAYERS \xB2\xB2\xB2\            |\n";
     cout << "\t\t\t|________________________________________________|\n";
 
-    cout << "\n \t\t\t Enter Name : ";
-    cin >> userName;
+    cout << "\n \t\t\t Enter User ID: ";
+    cin >> inputID;
 
     ifstream inFile(F_PlayersData);
     if (inFile.is_open()) {
-        while (getline(inFile, playerName)) {
-            if (playerName == "First Name: " + userName){
+        while (getline(inFile, userID)) {
+            if (userID == "ID: " + inputID){
+                getline(inFile, userID);
                 getline(inFile, playerName);
                 getline(inFile, playerDob);
                 getline(inFile, playerScored);
@@ -321,6 +314,7 @@ void searchPlayers(){
                 cout << "\n \t\t\t " << playerScored;
                 cout << "\n \t\t\t " << playerTeam;
                 cout << "\n \t\t\t " << playerTeam2;
+                break;
             }
         }
         inFile.close();
@@ -335,7 +329,6 @@ void searchPlayers(){
 //---------Start-Add Players---------------------------------------------//
 void addPlayers(){
     system("cls");
-
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
@@ -417,14 +410,15 @@ void removePlayers(){
     cout << "\t\t\t|              \xB2\xB2\xB2\ REMOVE PLAYERS \xB2\xB2\xB2\            |\n";
     cout << "\t\t\t|________________________________________________|\n";
 
-    cout << "\n \t\t\t Enter the name of the player to delete: ";
-    cin >> userName;
+    cout << "\n \t\t\t Enter the ID of the player to delete: ";
+    cin >> inputID;
 
     ifstream inFile(F_PlayersData);
     if (inFile.is_open()) {
-        while (getline(inFile, playerName)) {
-            if (playerName == "First Name: " + userName){
+        while (getline(inFile, userID)) {
+            if (userID == "ID: " + inputID){
                 playerFound = true;
+                getline(inFile, userID); // Line 1
                 getline(inFile, playerName);// Line 2
                 getline(inFile, playerDob); // Line 3
                 getline(inFile, playerScored); // Line 4
@@ -432,15 +426,24 @@ void removePlayers(){
                 getline(inFile, playerTeam2); // Line 6
 
                 teame2Lenth = playerTeam2.substr(0, 6);
+                nameLenth = playerName.substr(11);
 
                 if (teame2Lenth == "Team 2"){
                     inAnotherTeam = true;
-
                 }
             }
         }
         inFile.close();
-        removePlayer(userName);
+
+        cout << "\n ";
+        cout << "\n \t\t\t Do you want to remove " << nameLenth << "? (y or n): ";
+        cin >> choice;
+
+        if (choice == 'y' || choice == 'Y') {
+            removePlayer(inputID);
+        } else if (choice == 'n' || choice == 'N'){
+            backOption();
+        }
 
     } else {
         cout << "\n \t\t\t Error opening file!\n";
@@ -448,17 +451,18 @@ void removePlayers(){
     backOption();
 }
 
-void removePlayer(string userName ){
+void removePlayer(string inputID ){
 
     ifstream inFile(F_PlayersData);
     if (inFile.is_open()) {
         vector<string> fileContents;
 
         while (getline(inFile, line)) {
-            if (line == "First Name: " + userName) {
+            if (line == "ID: " + inputID) {
 
                 playerFound = true;
 
+                getline(inFile, line);
                 getline(inFile, line);
                 getline(inFile, line);
                 getline(inFile, line);
@@ -467,6 +471,7 @@ void removePlayer(string userName ){
 
                 if (inAnotherTeam){
                     getline(inFile, line);
+                    inAnotherTeam = false;
                 }
 
             } else {
