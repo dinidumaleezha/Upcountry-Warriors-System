@@ -7,7 +7,7 @@ using namespace std;
 //---------Start-Variables-----------------------------------------------//
 string inputID,userID, userName, password, firstName, lastName, Dob, line, recordLine;
 string playerName, playerFirsName, playerLastName, playerDob,playerTeam2, playerTeam, playerScored;
-string teame2Str, nameStr; //----Substring---------------------------//
+string teame2Str, nameStr; //----Substring-------------------------------//
 const string F_UserData = "userdata.txt";
 const string F_PlayersData = "players.txt";
 const string adminUsername = "user";
@@ -21,6 +21,34 @@ bool anotherTeam = false;
 bool inAnotherTeam = false;
 bool noInvalid = false; //----Check-N------------------------------------//
 //---------End-Variables-------------------------------------------------//
+
+//---------Start-Team Structures-----------------------------------------//
+struct {
+  string teamName;
+  string teamFileName;
+  int number;
+} team1, team2, team3, team4, team5;
+
+team1.number = 1;
+team1.teamName = " ";
+team1.teamFileName = " ";
+
+team2.number = 2;
+team2.teamName = " ";
+team2.teamFileName = " ";
+
+team3.number = 3;
+team3.teamName = " ";
+team3.teamFileName = " ";
+
+team4.number = 4;
+team4.teamName = " ";
+team4.teamFileName = " ";
+
+team5.number = 5;
+team5.teamName = " ";
+team5.teamFileName = " ";
+//---------End-Team Structures-------------------------------------------//
 
 //---------Start-Function Declaration------------------------------------//
 void welcomeMenu();
@@ -466,16 +494,13 @@ void removePlayers(){
     }
 }
 
-void removePlayer(string inputID ){
+void removePlayer(string inputID){
     ifstream inFile(F_PlayersData);
-    if (inFile.is_open()) {
+    if (inFile.is_open()){
         vector<string> fileContents;
-
         while (getline(inFile, line)) {
             if (line == "ID: " + inputID){
-
                 playerFound = true;
-
                 getline(inFile, line);
                 getline(inFile, line);
                 getline(inFile, line);
