@@ -7,7 +7,7 @@ using namespace std;
 //---------Start-Variables-----------------------------------------------//
 string inputID,userID, userName, password, firstName, lastName, Dob, line, recordLine;
 string playerName, playerFirsName, playerLastName, playerDob,playerTeam2, playerTeam, playerScored;
-string teame2Lenth, nameLenth;
+string teame2Str, nameStr; //----Substring---------------------------//
 const string F_UserData = "userdata.txt";
 const string F_PlayersData = "players.txt";
 const string adminUsername = "user";
@@ -35,6 +35,7 @@ void removePlayer(string userName); // Remove Player
 void editPlayerInfo();
 void manageTeams();
 void logout();
+void checkTeam(string checkID); //--See if the player has more than one team--//
 void backOption();
 //---------End-Function Declaration--------------------------------------//
 
@@ -53,6 +54,39 @@ void backOption(){
     }
 }
 //---------End-Back Option-----------------------------------------------//
+
+//---------Start-Check Team----------------------------------------------//
+void checkTeam(string checkID){
+    ifstream inFile(F_PlayersData);
+    if (inFile.is_open()) {
+        while (getline(inFile, userID)) {
+            if (userID == "ID: " + checkID){
+                playerFound = true;
+                getline(inFile, userID); // Line 1
+                getline(inFile, playerName);// Line 2
+                getline(inFile, playerDob); // Line 3
+                getline(inFile, playerScored); // Line 4
+                getline(inFile, playerTeam); // Line 5
+                getline(inFile, playerTeam2); // Line 6
+
+                teame2Str = playerTeam2.substr(0, 6);
+                nameStr = playerName.substr(11);
+
+                if (teame2Str == "Team 2"){
+                    inAnotherTeam = true;
+                }
+            }else{
+                playerFound = false;
+            }
+        }
+        inFile.close();
+    } else {
+        cout << "\n \t\t\t Error opening file!\n";
+    }
+}
+//---------End-Check Team------------------------------------------------//
+
+//---------------------------Main requirements---------------------------//
 
 //---------Start-Welcome Menu--------------------------------------------//
 void welcomeMenu(){
@@ -96,7 +130,7 @@ void welcomeMenu(){
 //---------End-Welcome Menu----------------------------------------------//
 
 //---------Start-Use Register--------------------------------------------//
-void useRegister() {
+void useRegister(){
     system("cls");
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
@@ -133,7 +167,7 @@ void useRegister() {
 //---------End-Use Register----------------------------------------------//
 
 //---------Start-Use Login-----------------------------------------------//
-void checkLogin() {
+void checkLogin(){
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|                  Welcome Back!                 |\n";
@@ -220,7 +254,7 @@ void mainMenu(){
 
     cin >> choice;
 
-    switch (choice) {
+    switch (choice){
         case '1':
             system("cls");
             displayAllPlayers();
@@ -273,14 +307,13 @@ void displayAllPlayers(){
 
     ifstream inFile(F_PlayersData);
     if (inFile.is_open()) {
-        while (getline(inFile, line)) {
+        while (getline(inFile, line)){
             cout << "\n \t\t\t " << line;
         }
         inFile.close();
     } else {
         cout << "\n \t\t\t Error opening file!\n";
     }
-
     backOption();
 }
 //---------End-Display AllPlayers----------------------------------------//
@@ -299,21 +332,27 @@ void searchPlayers(){
     cout << "\n \t\t\t Enter User ID: ";
     cin >> inputID;
 
+    checkTeam(inputID);
+
     ifstream inFile(F_PlayersData);
-    if (inFile.is_open()) {
-        while (getline(inFile, userID)) {
+    if (inFile.is_open()){
+        while (getline(inFile, userID)){
             if (userID == "ID: " + inputID){
                 getline(inFile, userID);
                 getline(inFile, playerName);
                 getline(inFile, playerDob);
                 getline(inFile, playerScored);
                 getline(inFile, playerTeam);
-                getline(inFile, playerTeam2);
                 cout << "\n \t\t\t " << playerName;
                 cout << "\n \t\t\t " << playerDob;
                 cout << "\n \t\t\t " << playerScored;
                 cout << "\n \t\t\t " << playerTeam;
-                cout << "\n \t\t\t " << playerTeam2;
+
+                if (inAnotherTeam){
+                    getline(inFile, playerTeam2);
+                    cout << "\n \t\t\t " << playerTeam2;
+                    inAnotherTeam = false;
+                }
                 break;
             }
         }
@@ -321,7 +360,6 @@ void searchPlayers(){
     } else {
         cout << "\n \t\t\t Error opening file!\n";
     }
-
     backOption();
 }
 //---------End-Search Players--------------------------------------------//
@@ -359,7 +397,7 @@ void addPlayers(){
     cout << "\n \t\t\t Should this player be added to another team? (y or n): ";
     cin >> choice;
 
-    if (choice == 'y' || choice == 'Y') {
+    if (choice == 'y' || choice == 'Y'){
         anotherTeam = true;
         cout << "\n \t\t\t Enter Player's Team 2: ";
         cin >> playerTeam2;
@@ -393,14 +431,13 @@ void addPlayers(){
         } else {
             cout << "\n \t\t\t Error opening file!\n";
         }
-
     backOption();
 }
 //---------End-Add Players-----------------------------------------------//
 
 //---------Start-Remove Players------------------------------------------//
 void removePlayers(){
-
+    nameStr = " ";
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
@@ -413,52 +450,29 @@ void removePlayers(){
     cout << "\n \t\t\t Enter the ID of the player to delete: ";
     cin >> inputID;
 
-    ifstream inFile(F_PlayersData);
-    if (inFile.is_open()) {
-        while (getline(inFile, userID)) {
-            if (userID == "ID: " + inputID){
-                playerFound = true;
-                getline(inFile, userID); // Line 1
-                getline(inFile, playerName);// Line 2
-                getline(inFile, playerDob); // Line 3
-                getline(inFile, playerScored); // Line 4
-                getline(inFile, playerTeam); // Line 5
-                getline(inFile, playerTeam2); // Line 6
+    checkTeam(inputID);
 
-                teame2Lenth = playerTeam2.substr(0, 6);
-                nameLenth = playerName.substr(11);
+    cout << "\n \t\t\t Do you want to remove " << nameStr << "? (y or n): ";
+    cin >> choice;
 
-                if (teame2Lenth == "Team 2"){
-                    inAnotherTeam = true;
-                }
-            }
-        }
-        inFile.close();
-
-        cout << "\n ";
-        cout << "\n \t\t\t Do you want to remove " << nameLenth << "? (y or n): ";
-        cin >> choice;
-
-        if (choice == 'y' || choice == 'Y') {
-            removePlayer(inputID);
-        } else if (choice == 'n' || choice == 'N'){
-            backOption();
-        }
-
-    } else {
-        cout << "\n \t\t\t Error opening file!\n";
+    if (choice == 'y' || choice == 'Y'){
+        removePlayer(inputID);
+    } else if (choice == 'n' || choice == 'N'){
+        system("cls");
+        mainMenu();
+    } else{
+        system("cls");
+        mainMenu();
     }
-    backOption();
 }
 
 void removePlayer(string inputID ){
-
     ifstream inFile(F_PlayersData);
     if (inFile.is_open()) {
         vector<string> fileContents;
 
         while (getline(inFile, line)) {
-            if (line == "ID: " + inputID) {
+            if (line == "ID: " + inputID){
 
                 playerFound = true;
 
@@ -473,20 +487,20 @@ void removePlayer(string inputID ){
                     getline(inFile, line);
                     inAnotherTeam = false;
                 }
-
             } else {
                 fileContents.push_back(line);
             }
         }
         inFile.close();
 
-        if (playerFound) {
+        if (playerFound){
             ofstream outFile(F_PlayersData);
             if (outFile.is_open()) {
                 for (const string& recodeLine : fileContents) {
                     outFile << recodeLine << endl;
                 }
                 outFile.close();
+                playerFound = false;
                 cout << "\n \t\t\t Player " << userName << " deleted successfully." << endl;
 
             } else {
@@ -495,7 +509,6 @@ void removePlayer(string inputID ){
         } else {
             cout << "\n \t\t\t Player not found!\n";
         }
-
     } else {
         cout << "\n \t\t\t Error opening file!\n";
     }
