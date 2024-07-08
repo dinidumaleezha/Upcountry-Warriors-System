@@ -1,61 +1,16 @@
+
 ID: 1
 First Name: Dinidu
-Full Name: Dinidu Malisha
+Full Name: Dinidu Maleesha
 Date of Birth: 08/09/2002
-Runs Scored: 987
-Team: ICBT
+Runs Scored: 654
+Team: New York Yankees
+Team 2: Chicago Cubs
 ------------------------------------------------
 ID: 2
 First Name: Wageesha
 Full Name: Wageesha Thivanjali
-Date of Birth: 08/09/2002
-Runs Scored: 369
-Team: ICBT
-Team 2: ICBT_2
-------------------------------------------------
-ID: 3
-First Name: Lasith
-Full Name: Lasith Malinga
-Date of Birth: 29/04/2000
-Runs Scored: 745
-Team: ICBT
-------------------------------------------------
-ID: 4
-First Name: Isuru
-Full Name: Isuru Dilsha
 Date of Birth: 08/09/2005
-Runs Scored: 64
-Team: Reno Aces
-------------------------------------------------
-ID: 5
-First Name: Viraj
-Full Name: Viraj Perera
-Date of Birth: 08/06/2001
-Runs Scored: 684
+Runs Scored: 654
 Team: Chicago Cubs
-Team 2: Detroit Tigers
-------------------------------------------------
-ID: 6
-First Name: Wageesha
-Full Name: Wageesha Thivanjali
-Date of Birth: 08/09/2005
-Runs Scored: 367
-Team: New York Yankees
-Team 2: Chicago Cubs
-------------------------------------------------
-ID: 7
-First Name: Dinidu
-Full Name: Dinidu Maleesha
-Date of Birth: 08/09/2002
-Runs Scored: 674
-Team: Chicago Cubs
-Team 2: Detroit Tigers
-------------------------------------------------
-ID: 8
-First Name: Dinidu
-Full Name: Dinidu Malisha
-Date of Birth: 08/09/2002
-Runs Scored: 546
-Team: New York Yankees
-Team 2: Detroit Tigers
 ------------------------------------------------

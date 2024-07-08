@@ -7,7 +7,7 @@ using namespace std;
 //---------Start-Variables-----------------------------------------------//
 string inputID,userID, userName, password, firstName, lastName, Dob, line, recordLine;
 string playerName, playerFirsName, playerLastName, playerDob,playerTeam2, playerTeam, playerScored;
-string team1Path, team2Path;
+string team1Path, team2Path, teamName, teamPath;
 string teame2Str, nameStr; //----Substring-------------------------------//
 const string F_UserData = "userdata.txt";
 const string F_PlayersData = "players.txt";
@@ -33,7 +33,6 @@ struct {
 
 //---------Start-Function Declarations-----------------------------------//
 void welcomeMenu();
-//void useRegister();
 void checkLogin();
 void mainMenu();
 void displayAllPlayers();
@@ -42,7 +41,6 @@ void addPlayers();
 void searchPlayers();
 void removePlayers(); // Player's Teame Check
 void removePlayer(string userName); // Remove Player
-void editPlayerInfo();
 void manageTeams();
 void AddMemberTeam1(int ID, string playerfName, string playerlName, string teamPath);
 void AddMemberTeam2(int ID, string playerfName, string playerlName, string teamPath);
@@ -99,12 +97,12 @@ void checkTeam(string checkID){
         while (getline(inFile, userID)) {
             if (userID == "ID: " + checkID){
                 playerFound = true;
-                getline(inFile, userID); // Line 1
-                getline(inFile, playerName);// Line 2
-                getline(inFile, playerDob); // Line 3
-                getline(inFile, playerScored); // Line 4
-                getline(inFile, playerTeam); // Line 5
-                getline(inFile, playerTeam2); // Line 6
+                getline(inFile, userID);
+                getline(inFile, playerName);
+                getline(inFile, playerDob);
+                getline(inFile, playerScored);
+                getline(inFile, playerTeam);
+                getline(inFile, playerTeam2);
 
                 teame2Str = playerTeam2.substr(0, 6);
                 nameStr = playerName.substr(11);
@@ -138,7 +136,6 @@ void welcomeMenu(){
 
     cout << "\t\t\t \n";
     cout << "\t\t\t [1] Log In \n";
-    //cout << "\t\t\t [2] Register \n";
     cout << "\t\t\t [2] View Team Details \n";
     cout << "\t\t\t [3] Exit \n";
 
@@ -165,43 +162,6 @@ void welcomeMenu(){
     }
 }
 //---------End-Welcome Menu----------------------------------------------//
-
-//---------Start-Use Register--------------------------------------------//
-void useRegister(){
-    system("cls");
-    cout << "\t\t\t ________________________________________________\n";
-    cout << "\t\t\t|                                                |\n";
-    cout << "\t\t\t|                User Registration               |\n";
-    cout << "\t\t\t|                                                |\n";
-    cout << "\t\t\t|  ====> Upcountry Warriors Baseball Clubs <===  |\n";
-    cout << "\t\t\t|                      V.0.1                     |\n";
-    cout << "\t\t\t|________________________________________________|\n";
-
-    cout << "\n \t\t\t Enter First Name: ";
-    cin >> firstName;
-
-    cout << "\n \t\t\t Enter Last Name: ";
-    cin >> lastName;
-
-    cout << "\n \t\t\t Enter Password: ";
-    cin >> password;
-
-    ofstream outFile(F_UserData, ios::app);
-    if (outFile.is_open()){
-        outFile << "User ID: " << userID << "\n";
-        outFile << "First Name: " << firstName << "\n";
-        outFile << "Password: " << password << "\n";
-        outFile << "Full Name: " << firstName << " " << lastName << "\n";
-        outFile << "------------------------------------------------\n";
-        outFile.close();
-        cout << "\n \t\t\t Registration Successful! \n";
-        system("cls");
-        checkLogin();
-    } else {
-        cout << "\n \t\t\t Error opening file!\n";
-    }
-}
-//---------End-Use Register----------------------------------------------//
 
 //---------Start-Use Login-----------------------------------------------//
 void checkLogin(){
@@ -238,33 +198,6 @@ void checkLogin(){
             system("cls");
             mainMenu();
     }
-/*
-    ifstream inFile(F_UserData);
-    if (inFile.is_open()) {
-        while (getline(inFile, line)) {
-            if (line == "First Name: " + userName) {
-                getline(inFile, line);
-                if (line == "Password: " + password) {
-                    loginSuccess = true;
-                    break;
-                }
-            }
-        }
-        inFile.close();
-
-        if (loginSuccess) {
-            cout << "\n \t\t\t Login Successful! \n";
-            system("cls");
-            mainMenu();
-        } else {
-            system("cls");
-            cout << "\n \t\t\t Invalid Username or Password! \n";
-            checkLogin();
-        }
-    } else {
-        cout << "\n \t\t\t Error opening file!\n";
-    }
-*/
 }
 //---------End-Use Login-------------------------------------------------//
 
@@ -283,10 +216,8 @@ void mainMenu(){
     cout << "\t\t\t [2] Search Players \n";
     cout << "\t\t\t [3] Add Players \n";
     cout << "\t\t\t [4] Remove Players \n";
-    cout << "\t\t\t [5] Edit Player Information \n";
-    cout << "\t\t\t [6] Add Teams \n";
-    cout << "\t\t\t [7] Manage Teams \n";
-    cout << "\t\t\t [8] Logout \n";
+    cout << "\t\t\t [5] Manage Teams \n";
+    cout << "\t\t\t [6] Logout \n";
     cout << "\n \t\t\t Enter your choice: ";
 
     cin >> choice;
@@ -312,12 +243,6 @@ void mainMenu(){
             system("cls");
             break;
         case '6':
-            system("cls");
-            break;
-        case '7':
-            system("cls");
-            break;
-        case '8':
             system("cls");
             loginSuccess = false;
             welcomeMenu();
@@ -525,7 +450,7 @@ void AddMemberTeam1(int ID, string playerfName, string playerlName, string teamP
     ofstream outFile(teamPath, ios::app);
         if (outFile.is_open()){
             outFile << "ID: " << ID << "\n";
-            outFile << "Full Name: " << playerfName << " " << playerlName << "\n";
+            outFile << "Name: " << playerfName << " " << playerlName << "\n";
             outFile << "------------------------------------------------\n";
             outFile.close();
         } else {
@@ -536,7 +461,7 @@ void AddMemberTeam2(int ID, string playerfName, string playerlName, string teamP
     ofstream outFile(teamPath, ios::app);
         if (outFile.is_open()){
             outFile << "ID: " << ID << "\n";
-            outFile << "Full Name: " << playerName << " " << playerlName << "\n";
+            outFile << "Name: " << playerfName << " " << playerlName << "\n";
             outFile << "------------------------------------------------\n";
             outFile.close();
         } else {
@@ -643,6 +568,37 @@ void ViewTeamDetails(){
     cout << "\n \t\t\t Enter Team Number: ";
     cin >> selectTeam;
 
+    if (selectTeam == team1.number){
+        teamName = team1.teamName;
+        teamPath = team1.teamFileName;
+    } else if (selectTeam == team2.number){
+        teamName = team2.teamName;
+        teamPath = team2.teamFileName;
+    } else if (selectTeam == team3.number){
+        teamName = team3.teamName;
+        teamPath = team3.teamFileName;
+    } else if (selectTeam == team4.number){
+        teamName = team4.teamName;
+        teamPath = team4.teamFileName;
+    } else if (selectTeam == team5.number){
+        teamName = team5.teamName;
+        teamPath = team5.teamFileName;
+    } else {
+        system("cls");
+        cout << "\n \t\t\t Invalid selected! \n";
+        ViewTeamDetails();
+    }
+
+    ifstream inFile(teamPath);
+    if (inFile.is_open()) {
+        while (getline(inFile, line)){
+            cout << "\n \t\t\t " << line;
+        }
+        inFile.close();
+    } else {
+        cout << "\n \t\t\t Error opening file!\n";
+    }
+    backOption();
 }
 
 //---------Start-main----------------------------------------------------//

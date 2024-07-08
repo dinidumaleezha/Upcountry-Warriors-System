@@ -1,4 +1,6 @@
-
-ID: 6
-Full Name: Wageesha
+ID: 1
+Name: Dinidu Maleesha
+------------------------------------------------
+ID: 2
+Name: Wageesha Thivanjali
 ------------------------------------------------
