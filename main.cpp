@@ -4,75 +4,52 @@
 #include <vector>
 using namespace std;
 
-//---------Start-Variables-----------------------------------------------//
-string inputID,userID, userName, password, firstName, lastName, Dob, line, recordLine;
-string playerName, playerFirsName, playerLastName, playerDob,playerTeam2, playerTeam, playerScored;
-string team1Path, team2Path, teamName, teamPath;
-string teame2Str, nameStr; //----Substring-------------------------------//
-const string F_UserData = "userdata.txt";
+//---------Start-Global Variables----------------------------------------//
+char choice;
+int P_ID;
+string userName, password;
+string selectTeam, selectTeam1, selectTeam2, inputTeamID;
+string teamID, teamName, teamPath, teamPath1, teamPath2, teamName1, teamName2;
+string inputID, userID, line, recordLine, teame2Str, nameStr;
+string playerName, playerFirsName, playerLastName, playerDob, playerScored, playerTeam, playerTeam2;
+
 const string F_PlayersData = "players.txt";
+const string F_teamData = "teamData.txt";
+const string F_path = "team";
 const string adminUsername = "user";
 const string adminPassword = "1234";
-int P_ID, selectTeam, selectTeam2;
-char choice;
 
 bool loginSuccess = false;
 bool playerFound = false;
 bool anotherTeam = false;
 bool inAnotherTeam = false;
 bool noInvalid = false; //----Check-N------------------------------------//
-//---------End-Variables-------------------------------------------------//
-
-//---------Start-Team Structures-----------------------------------------//
-struct {
-  int number;
-  string teamName;
-  string teamFileName;
-} team1, team2, team3, team4, team5;
-//---------End-Team Structures-------------------------------------------//
+//---------End-Global Variables------------------------------------------//
 
 //---------Start-Function Declarations-----------------------------------//
 void welcomeMenu();
 void checkLogin();
 void mainMenu();
-void displayAllPlayers();
-void ViewTeamDetails();
+void logout();
+
+void managePlayers();
 void addPlayers();
+void displayAllPlayers();
 void searchPlayers();
 void removePlayers(); // Player's Teame Check
 void removePlayer(string userName); // Remove Player
+
 void manageTeams();
+void addTeams();
+void ViewTeam();
+void TeamDetail(string fileName);
 void AddMemberTeam1(int ID, string playerfName, string playerlName, string teamPath);
 void AddMemberTeam2(int ID, string playerfName, string playerlName, string teamPath);
-void logout();
-void teamDeclarations();
+
+void selectTeamData(string inputTeamID);
 void checkTeam(string checkID); //--See if the player has more than one team--//
 void backOption();
 //---------End-Function Declarations-------------------------------------//
-
-//---------Start-Team Declarations---------------------------------------//
-void teamDeclarations(){
-    team1.number = 1;
-    team1.teamName = "New York Yankees";
-    team1.teamFileName = "team1.txt";
-
-    team2.number = 2;
-    team2.teamName = "Chicago Cubs";
-    team2.teamFileName = "team2.txt";
-
-    team3.number = 3;
-    team3.teamName = "Detroit Tigers";
-    team3.teamFileName = "team3.txt";
-
-    team4.number = 4;
-    team4.teamName = "Iowa Cubs";
-    team4.teamFileName = "team4.txt";
-
-    team5.number = 5;
-    team5.teamName = "Reno Aces";
-    team5.teamFileName = "team5.txt";
-}
-//---------End-Team Declarations-----------------------------------------//
 
 //---------Start-Back Option---------------------------------------------//
 void backOption(){
@@ -89,6 +66,24 @@ void backOption(){
     }
 }
 //---------End-Back Option-----------------------------------------------//
+
+//---------Start-Select Team---------------------------------------------//
+void selectTeamData(string inputTeamID){
+    ifstream inFile(F_teamData);
+    if (inFile.is_open()) {
+        while (inFile >> teamID >> teamName) {
+            if (teamID == inputTeamID) {
+                //cout << "\n\t\t\t " << teamID << " | " << teamName << endl;
+                inFile.close();
+                return;
+            }
+        }
+        inFile.close();
+    } else {
+        cout << "\n \t\t\t Error opening file!\n";
+    }
+}
+//---------End-Select Team-----------------------------------------------//
 
 //---------Start-Check Team----------------------------------------------//
 void checkTeam(string checkID){
@@ -149,7 +144,7 @@ void welcomeMenu(){
 
     } else if (choice == '2'){
         system("cls");
-        ViewTeamDetails();
+        ViewTeam();
 
     } else if (choice == '3'){
         system("cls");
@@ -163,7 +158,7 @@ void welcomeMenu(){
 }
 //---------End-Welcome Menu----------------------------------------------//
 
-//---------Start-Use Login-----------------------------------------------//
+//---------Start-User Login-----------------------------------------------//
 void checkLogin(){
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
@@ -199,7 +194,7 @@ void checkLogin(){
             mainMenu();
     }
 }
-//---------End-Use Login-------------------------------------------------//
+//---------End-User Login-------------------------------------------------//
 
 //---------Start-Main Menu-----------------------------------------------//
 void mainMenu(){
@@ -214,12 +209,10 @@ void mainMenu(){
 
     cout << "\n \t\t\t [1] Display All Players \n";
     cout << "\t\t\t [2] Search Players \n";
-    cout << "\t\t\t [3] Add Players \n";
-    cout << "\t\t\t [4] Remove Players \n";
-    cout << "\t\t\t [5] Manage Teams \n";
-    cout << "\t\t\t [6] Logout \n";
+    cout << "\t\t\t [3] Manage Players \n";
+    cout << "\t\t\t [4] Manage Teams \n";
+    cout << "\t\t\t [5] Logout \n";
     cout << "\n \t\t\t Enter your choice: ";
-
     cin >> choice;
 
     switch (choice){
@@ -233,16 +226,13 @@ void mainMenu(){
             break;
         case '3':
             system("cls");
-            addPlayers();
+            managePlayers();
             break;
         case '4':
             system("cls");
-            removePlayers();
+            manageTeams();
             break;
         case '5':
-            system("cls");
-            break;
-        case '6':
             system("cls");
             loginSuccess = false;
             welcomeMenu();
@@ -305,6 +295,7 @@ void searchPlayers(){
                 getline(inFile, playerDob);
                 getline(inFile, playerScored);
                 getline(inFile, playerTeam);
+
                 cout << "\n \t\t\t " << playerName;
                 cout << "\n \t\t\t " << playerDob;
                 cout << "\n \t\t\t " << playerScored;
@@ -326,12 +317,53 @@ void searchPlayers(){
 }
 //---------End-Search Players--------------------------------------------//
 
-//---------Start-Add Players---------------------------------------------//
-void addPlayers(){
-    system("cls");
+//---------Start-Manage Players------------------------------------------//
+void managePlayers(){
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|            \xB2\xB2\xB2\ MANAGE PLAYERS \xB2\xB2\xB2\              |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+
+    cout << "\n \t\t\t [1] Add Players \n";
+    cout << "\t\t\t [2] Remove Players \n";
+    cout << "\t\t\t [3] Back Menu \n";
+    cout << "\n \t\t\t Enter your choice: ";
+    cin >> choice;
+
+    switch (choice){
+        case '1':
+            system("cls");
+            addPlayers();
+            break;
+        case '2':
+            system("cls");
+            removePlayers();
+            break;
+        case '3':
+            system("cls");
+            mainMenu();
+            break;
+        default:
+            system("cls");
+            cout << "\n \t\t\t Invalid option selected! \n";
+            managePlayers();
+            break;
+    }
+}
+//---------End-Manage Players--------------------------------------------//
+
+//---------Start-Add Players---------------------------------------------//
+
+void addPlayers(){
+    system("cls");
+
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|  ===> Upcountry Warriors Baseball Clubs <===   |\n";
     cout << "\t\t\t|                      V.0.1                     |\n";
     cout << "\t\t\t|________________________________________________|\n";
     cout << "\t\t\t|                                                |\n";
@@ -354,34 +386,17 @@ void addPlayers(){
     cin >> playerScored;
 
     cout << "\n \t\t\t All Teams \n";
-    teamDeclarations();
-    cout << "\n \t\t\t " << team1.number << ". " << team1.teamName << endl;
-    cout << "\t\t\t " << team2.number << ". " << team2.teamName << endl;
-    cout << "\t\t\t " << team3.number << ". " << team3.teamName << endl;
-    cout << "\t\t\t " << team4.number << ". " << team4.teamName << endl;
-    cout << "\t\t\t " << team5.number << ". " << team5.teamName << endl;
 
+    TeamDetail(F_teamData);
+
+    cout << "\n";
     cout << "\n \t\t\t Enter Team Number: ";
     cin >> selectTeam;
+    inputTeamID = selectTeam;
 
-    if (selectTeam == team1.number){
-        playerTeam = team1.teamName;
-        team1Path = team1.teamFileName;
-    } else if (selectTeam == team2.number){
-        playerTeam = team2.teamName;
-        team1Path = team2.teamFileName;
-    } else if (selectTeam == team3.number){
-        playerTeam = team3.teamName;
-        team1Path = team3.teamFileName;
-    } else if (selectTeam == team4.number){
-        playerTeam = team4.teamName;
-        team1Path = team4.teamFileName;
-    } else if (selectTeam == team5.number){
-        playerTeam = team5.teamName;
-        team1Path = team5.teamFileName;
-    } else {
-        cout << "\n \t\t\t Invalid selected! \n";
-    }
+    selectTeamData(inputTeamID);
+    playerTeam = teamName;
+    teamPath1 = teamID;
 
     cout << "\n \t\t\t Should this player be added to another team? (y or n): ";
     cin >> choice;
@@ -390,29 +405,16 @@ void addPlayers(){
         anotherTeam = true;
         cout << "\n \t\t\t Enter Player's Second Team: ";
         cin >> selectTeam2;
+        inputTeamID = selectTeam2;
 
-        if (selectTeam2 == team1.number){
-            playerTeam2 = team1.teamName;
-            team2Path = team1.teamFileName;
-        } else if (selectTeam2 == team2.number){
-            playerTeam2 = team2.teamName;
-            team2Path = team2.teamFileName;
-        } else if (selectTeam2 == team3.number){
-            playerTeam2 = team3.teamName;
-            team2Path = team3.teamFileName;
-        } else if (selectTeam2 == team4.number){
-            playerTeam2 = team4.teamName;
-            team2Path = team4.teamFileName;
-        } else if (selectTeam2 == team5.number){
-            playerTeam2 = team5.teamName;
-            team2Path = team5.teamFileName;
-    } else {
-        cout << "\n \t\t\t Invalid selected! \n";
-    }
+        selectTeamData(inputTeamID);
+        playerTeam2 = teamName;
+        teamPath2 = teamID;
 
     } else if (choice == 'n' || choice == 'N'){
         noInvalid = true;
     }
+
     ofstream outFile(F_PlayersData, ios::app);
         if (outFile.is_open()){
             outFile << "ID: " << P_ID << "\n";
@@ -426,12 +428,12 @@ void addPlayers(){
                 outFile << "Team 2: " << playerTeam2 << "\n";
                 outFile << "------------------------------------------------\n";
                 cout << "\n \t\t\t Add Record Successful! \n";
-                AddMemberTeam1(P_ID, playerFirsName, playerLastName, team1Path);
-                AddMemberTeam2(P_ID, playerFirsName, playerLastName, team2Path);
+                AddMemberTeam1(P_ID, playerFirsName, playerLastName, teamPath1);
+                AddMemberTeam2(P_ID, playerFirsName, playerLastName, teamPath2);
                 anotherTeam = false;
             }else{
                 outFile << "------------------------------------------------\n";
-                AddMemberTeam1(P_ID, playerFirsName, playerLastName, team1Path);
+                AddMemberTeam1(P_ID, playerFirsName, playerLastName, teamPath1);
                 if (noInvalid){
                     cout << "\n \t\t\t Add Record Successful! \n";
                 } else {
@@ -447,7 +449,7 @@ void addPlayers(){
 }
 
 void AddMemberTeam1(int ID, string playerfName, string playerlName, string teamPath){
-    ofstream outFile(teamPath, ios::app);
+    ofstream outFile("team" + teamPath + ".txt", ios::app);
         if (outFile.is_open()){
             outFile << "ID: " << ID << "\n";
             outFile << "Name: " << playerfName << " " << playerlName << "\n";
@@ -458,7 +460,7 @@ void AddMemberTeam1(int ID, string playerfName, string playerlName, string teamP
         }
 }
 void AddMemberTeam2(int ID, string playerfName, string playerlName, string teamPath){
-    ofstream outFile(teamPath, ios::app);
+    ofstream outFile("team" + teamPath + ".txt", ios::app);
         if (outFile.is_open()){
             outFile << "ID: " << ID << "\n";
             outFile << "Name: " << playerfName << " " << playerlName << "\n";
@@ -533,7 +535,7 @@ void removePlayer(string inputID){
                 }
                 outFile.close();
                 playerFound = false;
-                cout << "\n \t\t\t Player " << userName << " deleted successfully." << endl;
+                cout << "\n \t\t\t Player deleted successfully." << endl;
 
             } else {
                 cout << "\n \t\t\t Error opening file for writing!\n";
@@ -548,7 +550,79 @@ void removePlayer(string inputID){
 }
 //---------End-Remove Players--------------------------------------------//
 
-void ViewTeamDetails(){
+//---------Start-Manage Team---------------------------------------------//
+void manageTeams(){
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|              \xB2\xB2\xB2\ MANAGE TEAMS \xB2\xB2\xB2\              |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+
+    cout << "\n \t\t\t [1] Add Teams \n";
+    cout << "\t\t\t [2] View Teams \n";
+    cout << "\t\t\t [3] Remove Teams \n";
+    cout << "\t\t\t [4] Back Menu \n";
+    cout << "\n \t\t\t Enter your choice: ";
+    cin >> choice;
+
+    switch (choice){
+        case '1':
+            system("cls");
+            addTeams();
+            break;
+        case '2':
+            system("cls");
+            ViewTeam();
+            break;
+        case '3':
+            system("cls");
+             searchPlayers();
+            break;
+        case '4':
+            system("cls");
+            mainMenu();
+            break;
+        default:
+            system("cls");
+            cout << "\n \t\t\t Invalid option selected! \n";
+            manageTeams();
+            break;
+    }
+}
+//---------End-Manage Team----------------------------------------------//
+
+//---------Start-Add Team-----------------------------------------------//
+void addTeams(){
+    cout << "\t\t\t ________________________________________________\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
+    cout << "\t\t\t|                      V.0.1                     |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+    cout << "\t\t\t|                                                |\n";
+    cout << "\t\t\t|                 \xB2\xB2\xB2\ ADD TEAMS \xB2\xB2\xB2\              |\n";
+    cout << "\t\t\t|________________________________________________|\n";
+
+    cout << "\n \t\t\t Enter Team ID: ";
+    cin >> teamID;
+    cout << "\n \t\t\t Enter Team Name: ";
+    getline(cin >> ws, teamName);
+
+    ofstream outFile(F_teamData, ios::app);
+    if (outFile.is_open()){
+        outFile << teamID << " " << teamName << "\n";
+        outFile.close();
+        cout << "\n \t\t\t Team Added Successful! \n";
+    } else {
+        cout << "\n \t\t\t Error opening file!\n";
+    }
+    backOption();
+}
+//---------End-Add Team-------------------------------------------------//
+
+void ViewTeam(){
     cout << "\t\t\t ________________________________________________\n";
     cout << "\t\t\t|                                                |\n";
     cout << "\t\t\t|   ===> Upcountry Warriors Baseball Clubs <===  |\n";
@@ -558,39 +632,20 @@ void ViewTeamDetails(){
     cout << "\t\t\t|                 \xB2\xB2\xB2\ ALL TEAMS \xB2\xB2\xB2\              |\n";
     cout << "\t\t\t|________________________________________________|\n";
 
-    teamDeclarations();
-    cout << "\n \t\t\t " << team1.number << ". " << team1.teamName << endl;
-    cout << "\t\t\t " << team2.number << ". " << team2.teamName << endl;
-    cout << "\t\t\t " << team3.number << ". " << team3.teamName << endl;
-    cout << "\t\t\t " << team4.number << ". " << team4.teamName << endl;
-    cout << "\t\t\t " << team5.number << ". " << team5.teamName << endl;
+    TeamDetail(F_teamData);
 
+    cout << "\n";
     cout << "\n \t\t\t Enter Team Number: ";
     cin >> selectTeam;
+    TeamDetail("team" + selectTeam+ ".txt");
 
-    if (selectTeam == team1.number){
-        teamName = team1.teamName;
-        teamPath = team1.teamFileName;
-    } else if (selectTeam == team2.number){
-        teamName = team2.teamName;
-        teamPath = team2.teamFileName;
-    } else if (selectTeam == team3.number){
-        teamName = team3.teamName;
-        teamPath = team3.teamFileName;
-    } else if (selectTeam == team4.number){
-        teamName = team4.teamName;
-        teamPath = team4.teamFileName;
-    } else if (selectTeam == team5.number){
-        teamName = team5.teamName;
-        teamPath = team5.teamFileName;
-    } else {
-        system("cls");
-        cout << "\n \t\t\t Invalid selected! \n";
-        ViewTeamDetails();
-    }
+    backOption();
+}
 
-    ifstream inFile(teamPath);
-    if (inFile.is_open()) {
+void TeamDetail(string fileName){
+
+    ifstream inFile(fileName);
+    if (inFile.is_open()){
         while (getline(inFile, line)){
             cout << "\n \t\t\t " << line;
         }
@@ -598,9 +653,8 @@ void ViewTeamDetails(){
     } else {
         cout << "\n \t\t\t Error opening file!\n";
     }
-    backOption();
-}
 
+}
 //---------Start-main----------------------------------------------------//
 int main(){
 
