@@ -307,6 +307,9 @@ void searchPlayers(){
                     inAnotherTeam = false;
                 }
                 break;
+            } else{
+                cout << "\n \t\t\t Player not found!\n";
+                break;
             }
         }
         inFile.close();
@@ -563,8 +566,7 @@ void manageTeams(){
 
     cout << "\n \t\t\t [1] Add Teams \n";
     cout << "\t\t\t [2] View Teams \n";
-    cout << "\t\t\t [3] Remove Teams \n";
-    cout << "\t\t\t [4] Back Menu \n";
+    cout << "\t\t\t [3] Back Menu \n";
     cout << "\n \t\t\t Enter your choice: ";
     cin >> choice;
 
@@ -578,10 +580,6 @@ void manageTeams(){
             ViewTeam();
             break;
         case '3':
-            system("cls");
-             searchPlayers();
-            break;
-        case '4':
             system("cls");
             mainMenu();
             break;
